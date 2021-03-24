@@ -1,0 +1,74 @@
+body{
+  background-color: #eee;
+  height: 700px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.container{height: 1000px;}
+
+.cell input {
+  -moz-appearance: textfield;
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 3px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 30px;
+}
+
+table {margin: 1em auto;}
+
+td {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+}
+
+td input:hover, td, table{cursor: pointer;}
+
+td input:hover{background-color: #a5c9ff;}
+
+td input:focus{background-color: #a5ffc9;}
+
+td:first-child {border-left: 2px solid #000000;}
+
+td:nth-child(3n) {border-right: 2px solid #000000;}
+
+tr:first-child {border-top: 2px solid #000000;}
+
+tr:nth-child(3n) td {border-bottom: 2px solid #000000;}
+
+.solve{text-align: center;}
+
+.solve button{
+  width: 150px;
+  height: 50px;
+  border-radius: 15px;
+  border: 1px solid #000000;
+  background-color: aliceblue;
+  background-position: center;
+  transition: background 1s;
+  font-size: 20px;
+  outline: none; 
+
+}
+
+button:hover{
+  cursor: pointer;
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+
+
+button:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.failed input{background-color: #FF0000;}
+
+.success input{background-color: #00ff00;}
