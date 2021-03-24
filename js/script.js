@@ -1,5 +1,5 @@
-let button = document.querySelector(".solve");
-
+let solver = document.querySelector(".solve button");
+let reseter = document.querySelector(".reset button");
 let grid = [];
 let elements = [];
 
@@ -28,7 +28,11 @@ function get_grid(){
 }
 
 function reset_all(inpt){
-    inpt.querySelector("input").value = "";
+    for(i=0;i<9;i++){
+        for (j=0;j<9;j++){
+        elements[i][j].querySelector('input').value = "";
+        }
+    }
 }
 
 function get_empty(grid){
@@ -108,4 +112,5 @@ function solve(){
     
 }
 
-button.addEventListener("click", solve);
+solver.addEventListener("click", solve);
+reseter.addEventListener("click", reset_all);
