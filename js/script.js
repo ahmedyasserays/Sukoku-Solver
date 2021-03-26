@@ -3,6 +3,20 @@ let reseter = document.querySelector(".reset button");
 let grid = [];
 let elements = [];
 
+let cells = document.querySelectorAll(".cell");
+for (cell of cells){
+    
+    cell.querySelector("input").addEventListener("input", 
+        function(){
+            if (this.value.length > this.maxLength){
+                
+                this.value = this.value.slice(0, this.maxLength);
+            }
+        }
+        
+    );
+}
+
 function get_values(row){
     let temp = row.querySelectorAll('.cell');
     let cells = [];
