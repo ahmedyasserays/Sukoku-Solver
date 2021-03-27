@@ -51,6 +51,8 @@ function reset_all(){
     for(i=0;i<9;i++){
         for (j=0;j<9;j++){
         elements[i][j].querySelector('input').value = "";
+        elements[i][j].querySelector('input').className = "";
+
         }
     }
 }
