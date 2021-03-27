@@ -88,6 +88,9 @@ button:active {
   transition: background 0s;
 }
 
-.failed input{background-color: #FF0000;}
+.failed{background-color: #FF0000;}
 
-.success input{background-color: #00ff00;}
+.success{background-color: #00ff00;}
+
+.loading{background-color: #FFC300;}
+
