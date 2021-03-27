@@ -1,5 +1,7 @@
 let solver = document.querySelector(".solve button");
 let reseter = document.querySelector(".reset button");
+let creator = document.querySelector(".create button");
+
 let grid = new Array();
 let elements = new Array();
 
@@ -17,7 +19,7 @@ for (cell of cells){
     );
 }
 
-
+// get the cells and it's values
 function get_values(row){
     let temp = row.querySelectorAll('.cell');
     let cells = new Array();
@@ -30,17 +32,20 @@ function get_values(row){
     return [cells, inputs];
 }
 
+// arrange the cells and input and it's values
 function get_cells(row){
     let values = get_values(row); 
     grid.push(values[0]);
     elements.push(values[1]);
 }
 
+// find the rows of the grid
 function get_grid(){
     let rows = document.querySelectorAll(".row");
     rows.forEach(get_cells);
 }
 
+// deletes every thing 
 function reset_all(){
     get_grid();
     for(i=0;i<9;i++){
@@ -50,6 +55,7 @@ function reset_all(){
     }
 }
 
+// find the first empty cell in the given grid
 function get_empty(grid_to_empty){
     let i, j;
     for (i=0;i<9;i++){
@@ -62,13 +68,13 @@ function get_empty(grid_to_empty){
     return false;
 }
 
+// check if a given value is possible in a given possision
 function is_possible(x, y, n, grid){
     for (i=0;i<9;i++){
         if ((grid[i][y] == n && i != x) || (grid[x][i] == n && i != y)){
             return false;
         }
     }
-    
     let x0 = (Math.floor(x / 3))*3;
     let y0 = (Math.floor(y / 3))*3;
     for (i=0;i<3;i++){
@@ -79,10 +85,9 @@ function is_possible(x, y, n, grid){
         }
     }
     return true;
-
 }
 
-
+// writes the grid to the html elements
 function write(elements, grid){
     for(i=0;i<9;i++){
         for (j=0;j<9;j++){
@@ -92,6 +97,8 @@ function write(elements, grid){
     
 }
 
+
+// find the solution for a given grid
 const timer = ms => new Promise(res => setTimeout(res, ms))
 
 async function find_solution(){
@@ -117,7 +124,7 @@ async function find_solution(){
                     target_element.value = 0;
                 }
             }
-            await timer(80);
+            await timer(50);
         }
         target_element.className = "failed";
         target_element.value = 0;
@@ -127,6 +134,7 @@ async function find_solution(){
     }
 }
 
+// check if a given grid is valid
 function check_valid(board){
     for (row_counter=0;row_counter<9;row_counter++){
         for (colm_counter=0;colm_counter<9;colm_counter++){
@@ -141,6 +149,7 @@ function check_valid(board){
     }return true; 
 }
 
+// sure that the elments are ready to be solved
 function solve(){
     grid = [];
     elements = [];
@@ -154,3 +163,4 @@ function solve(){
 
 solver.addEventListener("click", solve);
 reseter.addEventListener("click", reset_all);
+creator.addEventListener("click", create_puzzle);
