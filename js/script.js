@@ -113,20 +113,15 @@ async function find_solution(){
                     return true;
                 }else{
                     grid[x][y] = 0;
-                    target_element.className = "failed";
+                    target_element.className = "loading";
                     target_element.value = 0;
-                    if (y === elements[x].length-1){
-                        elements[x+1][0].querySelector("input").className = "failed";
-                        elements[x+1][0].querySelector("input").value = 0;
-                    }else{
-                        elements[x][y+1].querySelector("input").className = "failed";
-                        elements[x][y+1].querySelector("input").value = 0;
-                    }
-
                 }
             }
             await timer(80);
-        }return false;
+        }
+        target_element.className = "failed";
+        target_element.value = 0;
+        return false;
     }else{
         return true;
     }
