@@ -174,7 +174,6 @@ async function solve(){
         await find_solution();
         solving = false;
         solver.style.display = "inline-block";
-        // stopper.disabled = true;
         stopper.style.display = "none";
     }else{
         alert('WARNING... this is NOT a valid grid!!');
@@ -198,7 +197,6 @@ function create_puzzle(){
 }
 
 function create(){
-    // let number_of_empty = getRndInteger(30, 50);
     let remove_counter = 0; 
     while (remove_counter < hard_level){
         target_row = getRndInteger(0, 9);
@@ -248,12 +246,6 @@ function find_random_solution() {
         }return false;
     }else{return true;}
 }
-
-
-// we need to put another button above the solve key with display none
-// on clicking solve the disabled for each button is different
-// after finishing they back to normal
-
 
 solver.addEventListener("click", solve);
 reseter.addEventListener("click", reset_all);
