@@ -77,11 +77,11 @@ input[type="range"]:hover{cursor: pointer;}
 .buttons{
   text-align: center;
 }
-.reset, .solve, .create{
+.reset, .solve, .create, .stop{
   display: inline-block;
 }
 
-.solve button,.reset button, .create button{
+button{
   text-transform: capitalize;
   margin: 20px;
   float: left;
@@ -94,7 +94,6 @@ input[type="range"]:hover{cursor: pointer;}
   transition: background 1s;
   font-size: 20px;
   outline: none; 
-
 }
 
 button:hover{
@@ -107,6 +106,10 @@ button:active {
   background-color: #6eb9f7;
   background-size: 100%;
   transition: background 0s;
+}
+
+.stop button{
+  display: none;
 }
 
 .failed{background-color: #FF0000;}

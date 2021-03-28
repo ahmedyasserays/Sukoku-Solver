@@ -3,6 +3,7 @@ let reseter = document.querySelector(".reset button");
 let creator = document.querySelector(".create button");
 let slider = document.getElementById("mySlider");
 let hard_slider = document.getElementById("hardSlider");
+let stopper = document.querySelector(".stop button");
 let solving_interval, solving;
 let hard_level = hard_slider.value;
 let grid = new Array();
@@ -50,7 +51,7 @@ function get_grid(){
 
 // deletes every thing 
 function reset_all(){
-    solving = false;
+    // solving = false;
     get_grid();
     for(i=0;i<9;i++){
         for (j=0;j<9;j++){
@@ -146,7 +147,7 @@ async function find_solution(){
 function check_valid(board){
     for (row_counter=0;row_counter<9;row_counter++){
         for (colm_counter=0;colm_counter<9;colm_counter++){
-            if (board[row_counter][colm_counter] === "" || board[row_counter][colm_counter] === 0){
+            if (board[row_counter][colm_counter] == "" || board[row_counter][colm_counter] == 0){
                 continue;
             }else{
                 if (! is_possible(row_counter, colm_counter, board[row_counter][colm_counter], board)){
@@ -161,21 +162,24 @@ function check_valid(board){
 async function solve(){
     solving = true;
     let buttons = document.querySelectorAll("button");
-    for (button of buttons){
-        
-        button.disabled = true;
-    }
+    for (button of buttons){button.disabled = true;}
     grid = [];
     elements = [];
     get_grid();
     if (check_valid(grid)){ 
+        
+        solver.style.display = "none";
+        stopper.style.display = "inline-block";
+        stopper.disabled = false;
         await find_solution();
+        solving = false;
+        solver.style.display = "inline-block";
+        // stopper.disabled = true;
+        stopper.style.display = "none";
     }else{
         alert('WARNING... this is NOT a valid grid!!');
     }
-    for (button of buttons){
-        button.disabled = false;
-    }
+    for (button of buttons){button.disabled = false;}
 
 }
 
@@ -254,6 +258,11 @@ function find_random_solution() {
 solver.addEventListener("click", solve);
 reseter.addEventListener("click", reset_all);
 creator.addEventListener("click", create_puzzle);
+stopper.addEventListener("click", ()=>{
+    solving_interval = 0;
+    solving=false;
+    solving_interval = 100-slider.value;
+})
 slider.addEventListener("input", () => {
     solving_interval = 100-slider.value;
 })
