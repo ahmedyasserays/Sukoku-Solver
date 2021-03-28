@@ -54,6 +54,23 @@ tr:first-child {border-top: 2px solid #000000;}
 
 tr:nth-child(3n) td {border-bottom: 2px solid #000000;}
 
+.slider{
+  text-align: center;
+}
+
+.slider p{
+  display: inline-block;
+  margin: 10px;
+  font-size: 22px;
+  text-transform: capitalize;
+}
+
+#mySlider{
+  width: 200px;
+}
+
+#mySlider:hover{cursor: pointer;}
+
 .buttons{
   text-align: center;
 }
