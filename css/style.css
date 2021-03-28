@@ -54,6 +54,8 @@ tr:first-child {border-top: 2px solid #000000;}
 
 tr:nth-child(3n) td {border-bottom: 2px solid #000000;}
 
+
+
 .slider{
   text-align: center;
 }
@@ -65,11 +67,12 @@ tr:nth-child(3n) td {border-bottom: 2px solid #000000;}
   text-transform: capitalize;
 }
 
-#mySlider{
+input[type="range"]{
+  outline: none;
   width: 200px;
 }
 
-#mySlider:hover{cursor: pointer;}
+input[type="range"]:hover{cursor: pointer;}
 
 .buttons{
   text-align: center;

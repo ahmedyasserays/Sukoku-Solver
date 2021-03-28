@@ -2,7 +2,9 @@ let solver = document.querySelector(".solve button");
 let reseter = document.querySelector(".reset button");
 let creator = document.querySelector(".create button");
 let slider = document.getElementById("mySlider");
-let solving_interval;
+let hard_slider = document.getElementById("hardSlider");
+let solving_interval, solving;
+let hard_level = hard_slider.value;
 let grid = new Array();
 let elements = new Array();
 
@@ -48,6 +50,7 @@ function get_grid(){
 
 // deletes every thing 
 function reset_all(){
+    solving = false;
     get_grid();
     for(i=0;i<9;i++){
         for (j=0;j<9;j++){
@@ -110,20 +113,23 @@ async function find_solution(){
         let y = empty[1];
         let target_element = elements[x][y].querySelector("input");
         for (let n=1;n<10;n++){
-            target_element.className = "loading";
-            target_element.value = n;
-            let is_number_possible = is_possible(x, y, n, grid);
-            if (is_number_possible){
-                target_element.className = "success";
-                grid[x][y] = n;
-                (grid);
-                let can_find_solution = await find_solution();
-                if (can_find_solution){
-                    return true;
-                }else{
-                    grid[x][y] = 0;
-                    target_element.className = "loading";
-                    target_element.value = 0;
+            if (solving){
+                target_element.className = "loading";
+                target_element.value = n;
+                let is_number_possible = is_possible(x, y, n, grid);
+                if (is_number_possible){
+                    if (solving){
+                        target_element.className = "success";
+                        grid[x][y] = n;
+                        let can_find_solution = await find_solution();
+                        if (can_find_solution){
+                            return true;
+                        }else{
+                            grid[x][y] = 0;
+                            target_element.className = "loading";
+                            target_element.value = 0;
+                        }
+                    }
                 }
             }
             await timer(solving_interval);
@@ -153,11 +159,12 @@ function check_valid(board){
 
 // sure that the elments are ready to be solved
 async function solve(){
+    solving = true;
     let buttons = document.querySelectorAll("button");
     for (button of buttons){
+        
         button.disabled = true;
     }
-    console.log(buttons);
     grid = [];
     elements = [];
     get_grid();
@@ -177,6 +184,7 @@ async function solve(){
 
 // create new puzzle
 function create_puzzle(){
+    solving = false;
     reset_all();
     grid = [];
     get_grid();
@@ -186,9 +194,9 @@ function create_puzzle(){
 }
 
 function create(){
-    let number_of_empty = getRndInteger(30, 50);
+    // let number_of_empty = getRndInteger(30, 50);
     let remove_counter = 0; 
-    while (remove_counter < number_of_empty){
+    while (remove_counter < hard_level){
         target_row = getRndInteger(0, 9);
         target_colm = getRndInteger(0, 9);
         if (grid[target_row][target_colm] == ""){continue;}
@@ -243,4 +251,8 @@ reseter.addEventListener("click", reset_all);
 creator.addEventListener("click", create_puzzle);
 slider.addEventListener("input", () => {
     solving_interval = 100-slider.value;
+})
+
+hard_slider.addEventListener("input", () => {
+    hard_level = hard_slider.value;
 })
