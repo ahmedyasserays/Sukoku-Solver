@@ -79,6 +79,7 @@ tr:nth-child(3n) td {border-bottom: 2px solid #000000;}
 }
 
 .solve button,.reset button, .create button{
+  text-transform: capitalize;
   margin: 20px;
   float: left;
   width: 150px;
