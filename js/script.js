@@ -246,6 +246,11 @@ function find_random_solution() {
 }
 
 
+// we need to put another button above the solve key with display none
+// on clicking solve the disabled for each button is different
+// after finishing they back to normal
+
+
 solver.addEventListener("click", solve);
 reseter.addEventListener("click", reset_all);
 creator.addEventListener("click", create_puzzle);
