@@ -1,7 +1,8 @@
 let solver = document.querySelector(".solve button");
 let reseter = document.querySelector(".reset button");
 let creator = document.querySelector(".create button");
-
+let slider = document.getElementById("mySlider");
+let solving_interval;
 let grid = new Array();
 let elements = new Array();
 
@@ -125,7 +126,7 @@ async function find_solution(){
                     target_element.value = 0;
                 }
             }
-            await timer(50);
+            await timer(solving_interval);
         }
         target_element.className = "failed";
         target_element.value = 0;
@@ -240,3 +241,6 @@ function find_random_solution() {
 solver.addEventListener("click", solve);
 reseter.addEventListener("click", reset_all);
 creator.addEventListener("click", create_puzzle);
+slider.addEventListener("input", () => {
+    solving_interval = 100-slider.value;
+})
