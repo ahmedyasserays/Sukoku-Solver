@@ -52,7 +52,6 @@ function reset_all(){
         for (j=0;j<9;j++){
         elements[i][j].querySelector('input').value = "";
         elements[i][j].querySelector('input').className = "";
-
         }
     }
 }
@@ -152,16 +151,91 @@ function check_valid(board){
 }
 
 // sure that the elments are ready to be solved
-function solve(){
+async function solve(){
+    let buttons = document.querySelectorAll("button");
+    for (button of buttons){
+        button.disabled = true;
+    }
+    console.log(buttons);
     grid = [];
     elements = [];
     get_grid();
     if (check_valid(grid)){ 
-        find_solution();
+        await find_solution();
     }else{
         alert('WARNING... this is NOT a valid grid!!');
     }
+    for (button of buttons){
+        button.disabled = false;
+    }
+
 }
+
+// <<<<<<<<<<<<<<<<<<< the start of the creation part >>>>>>>>>>>>>>>>>>>>>>>
+
+
+// create new puzzle
+function create_puzzle(){
+    reset_all();
+    grid = [];
+    get_grid();
+    find_random_solution();
+    create();
+    write(elements, grid);
+}
+
+function create(){
+    let number_of_empty = getRndInteger(30, 50);
+    let remove_counter = 0; 
+    while (remove_counter < number_of_empty){
+        target_row = getRndInteger(0, 9);
+        target_colm = getRndInteger(0, 9);
+        if (grid[target_row][target_colm] == ""){continue;}
+        grid[target_row][target_colm] = "";
+        remove_counter++;
+    }
+}
+
+function shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
+
+
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+}
+
+function find_random_solution() {
+    let empty = get_empty(grid);
+    if (empty){
+        let x = empty[0];
+        let y = empty[1];
+        let choices = [];
+        for (n=1;n<10;n++){choices.push(n);}
+        shuffle(choices);
+        for (choice of choices){
+            if (is_possible( x, y, choice, grid)){
+                grid[x][y] = choice;
+                if (find_random_solution(grid)){
+                    return true;
+                }else{
+                    grid[x][y] = 0;
+                }
+            }
+        }return false;
+    }else{return true;}
+}
+
 
 solver.addEventListener("click", solve);
 reseter.addEventListener("click", reset_all);
