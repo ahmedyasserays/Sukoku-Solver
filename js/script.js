@@ -166,14 +166,23 @@ async function solve(){
     elements = [];
     get_grid();
     if (check_valid(grid)){ 
-        
         solver.style.display = "none";
         stopper.style.display = "inline-block";
         stopper.disabled = false;
+        for (row of elements){
+            for (cell of row){
+                cell.querySelector("input").readOnly = true;
+            }
+        }
         await find_solution();
         solving = false;
         solver.style.display = "inline-block";
         stopper.style.display = "none";
+        for (row of elements){
+            for (cell of row){
+                cell.querySelector("input").readOnly = false;
+            }
+        }
     }else{
         alert('WARNING... this is NOT a valid grid!!');
     }
