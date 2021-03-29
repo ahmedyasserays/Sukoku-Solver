@@ -9,6 +9,24 @@ let hard_level = hard_slider.value;
 let grid = new Array();
 let elements = new Array();
 
+
+solver.addEventListener("click", solve);
+reseter.addEventListener("click", reset_all);
+creator.addEventListener("click", create_puzzle);
+stopper.addEventListener("click", ()=>{
+    solving_interval = 0;
+    solving=false;
+    solving_interval = 100-slider.value;
+})
+slider.addEventListener("input", () => {
+    solving_interval = 100-slider.value;
+})
+
+hard_slider.addEventListener("input", () => {
+    hard_level = hard_slider.value;
+})
+
+
 // make sure that every cell gets only one number
 let cells = document.querySelectorAll(".cell");
 for (cell of cells){
@@ -255,18 +273,3 @@ function find_random_solution() {
     }else{return true;}
 }
 
-solver.addEventListener("click", solve);
-reseter.addEventListener("click", reset_all);
-creator.addEventListener("click", create_puzzle);
-stopper.addEventListener("click", ()=>{
-    solving_interval = 0;
-    solving=false;
-    solving_interval = 100-slider.value;
-})
-slider.addEventListener("input", () => {
-    solving_interval = 100-slider.value;
-})
-
-hard_slider.addEventListener("input", () => {
-    hard_level = hard_slider.value;
-})
